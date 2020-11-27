@@ -27,7 +27,8 @@ iattc_prop <- read.csv(here("01_raw-data", "IATTC_Proponents.csv"),
 iattc_prop_long <- melt(iattc_prop, id = c("Country", "membership_status"), variable.name = "Species") %>% 
   drop_na() %>% 
   separate(Species, c("Genus", "Species","Year")) %>% 
-  unite(Species.New, Genus, Species, sep = " ")
+  unite(Species.New, Genus, Species, sep = " ") %>% 
+  case_when()
 
 #Loading WCPFC CSV Files
 wcpfc_prop <- read.csv(here("01_raw-data", "WCPFC_Proponents.csv"),
