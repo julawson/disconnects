@@ -1,14 +1,14 @@
 ,Alpha3Code,CountryName,Species,Year,value
 176,phl,Philippines,Rhincodon typus,1999,1
-305,hrv,Croatia ,Isurus spp,2008,1
+305,hrv,Croatia ,Isurus spp.,2008,1
 570,eu,European Union,Lamna nasus,2008,1
 812,ecu,Ecuador,Manta birostris,2011,1
-1068,eu,European Union,Alopias spp,2014,1
+1068,eu,European Union,Alopias spp.,2014,1
 1311,egy,Egypt,Carcharhinus falciformis,2014,1
 1569,fji,Fiji,Manta alfredi,2014,1
-1818,fji,Fiji,Mobula spp,2014,1
-2046,cri,Costa Rica,Sphyrna spp,2014,1
-2057,ecu,Ecuador,Sphyrna spp,2014,1
+1818,fji,Fiji,Mobula spp.,2014,1
+2046,cri,Costa Rica,Sphyrna spp.,2014,1
+2057,ecu,Ecuador,Sphyrna spp.,2014,1
 2433,wsm,Samoa,Prionace glauca,2017,1
 2451,lka,Sri Lanka,Prionace glauca,2017,1
 2600,isr,Israel,Rhincodon typus,2017,1

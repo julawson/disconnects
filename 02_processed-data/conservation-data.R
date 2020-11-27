@@ -5,8 +5,6 @@ library(reshape2)
 
 ### CMS Information ###
 
-#Test
-
 #Loading CMS CSV Files
 cms_prop <- read.csv(here("01_raw-data", "CMS_Proponants_111420.csv"),
                   stringsAsFactors = F) %>% 
@@ -94,7 +92,8 @@ cites_state <- read.csv(here("01_raw-data", "CITES_Statements_111820.csv"),
 
 cites_info <- read.csv(here("01_raw-data", "CITES_VotingRecords_111820.csv"),
                      stringsAsFactors = F) %>% 
-  select(Listing.Year, Species)
+  select(Listing.Year, Species) %>% 
+  slice(2:10)
 
 #Changing from long to wide format
 cites_prop_long <- melt(cites_prop, id = c("Alpha3Code","CountryName"), variable.name = "Species") %>% 
