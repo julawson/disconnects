@@ -3,6 +3,8 @@ library(dplyr)
 library(tidyverse)
 library(reshape2)
 library(gridExtra)
+library(viridis)
+library(ggpubr)
 
 #create plot of country participantion for each tRFMO 
 #note that this is high level for all shark-related policy (not single species)
@@ -47,5 +49,31 @@ p1<-ggplot(i, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fill=stance
 
 p1 + facet_wrap(vars(tRFMO ), nrow=1, scales= "free",drop=TRUE)
 
+#opposers
 
+opposers<-subset(i, stance == "Oppose")
+
+o<-ggplot(opposers, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fill= tRFMO ))+
+  geom_bar( stat= "identity", position= "stack")+
+  scale_fill_viridis(discrete=TRUE)+
+  labs(title="Country opposition to fisheries policy",
+       y= "Number of votes", x= "Country"  )+
+ # facet_wrap(~reorder( tRFMO, -votes, FUN= sum), scales= "free_y",  drop=TRUE)+
+  coord_flip()+
+  theme_bw()
+
+#proposers 
+
+supporters<-subset(i, stance == "Support")
+
+s<- ggplot(supporters, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fill= tRFMO ))+
+  geom_bar( stat= "identity", position= "stack")+
+  scale_fill_viridis(discrete=TRUE)+
+  labs(title="Country supporters of fisheries policy",
+       y= "Number of votes", x= "Country"  )+
+  # facet_wrap(~reorder( tRFMO, -votes, FUN= sum), scales= "free_y",  drop=TRUE)+
+  coord_flip()+
+  theme_bw()
+
+ggarrange(o,s , ncol=2, common.legend=TRUE)
 
