@@ -124,7 +124,21 @@ mobulidae_genus <- mobulidae %>%
   summarize(overallValue = mean(overallValue))
 #just countries in cons and trfmo
 mobulidae_select <- mobulidae %>% 
+  mutate(Species = str_replace(Species,"Manta birostris", "Mobula spp.")) %>%
+  mutate(Species = str_replace(Species,"Manta spp.", "Mobula spp.")) %>%
+  mutate(Species = str_replace(Species,"Manta alfredi", "Mobula spp.")) %>%
   drop_na()
+
+#Creating a table of consistent/inconsistent actors
+all_species <- bind_rows(alopias_select, rtypus_select, cfalci_select, clongi_select, sphyrna_select, mobulidae_select)
+
+#Overall Analysis, Species level#
+write.csv(x = all_species,
+          file = here("04_results", "trfmo_cons_all_species.csv"),
+          row.names = F)
+
+
+###Overall###
 
 #Importing Overall RFMO Data
 iattc_all <- read.csv(here("02_processed-data","iattc_all.csv")) 

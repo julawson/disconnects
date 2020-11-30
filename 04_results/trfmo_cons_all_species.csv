@@ -1,0 +1,25 @@
+"CountryName","Species","consValue","trfmoValue","overallValue"
+"European Union","Alopias spp.",1,1,1
+"Australia","Rhincodon typus",1,1,1
+"Japan","Rhincodon typus",0,0,0
+"Mexico","Rhincodon typus",1,1,1
+"United States","Rhincodon typus",1,1,1
+"Australia","Carcharhinus falciformis",1,1,1
+"European Union","Carcharhinus falciformis",1,1,1
+"Fiji","Carcharhinus falciformis",1,1,1
+"China","Carcharhinus falciformis",0,0,0
+"Japan","Carcharhinus falciformis",0,0,0
+"Mexico","Carcharhinus falciformis",1,0,0.5
+"New Zealand","Carcharhinus falciformis",1,1,1
+"European Union","Carcharhinus longimanus",1,1,1
+"India","Carcharhinus longimanus",1,0,0.5
+"New Zealand","Carcharhinus longimanus",1,1,1
+"Australia","Carcharhinus longimanus",1,1,1
+"Japan","Carcharhinus longimanus",0,1,0.5
+"United States","Carcharhinus longimanus",1,1,1
+"European Union","Sphyrna spp.",1,1,1
+"China","Sphyrna spp.",0,0,0
+"Japan","Sphyrna spp.",0,0,0
+"New Zealand","Mobula spp.",1,1,1
+"Fiji","Mobula spp.",1,1,1
+"Japan","Mobula spp.",0,0,0
