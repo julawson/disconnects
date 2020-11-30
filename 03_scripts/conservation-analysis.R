@@ -27,7 +27,7 @@ same_prop <- all_prop %>%
 
 #These are the countries that made statements on all species
 all_state <- full_join(cms_state,cites_state, by=c("Species","CountryName")) %>% 
-  select(Species,Year.x, Year.y, CountryName, cmsValue, citesValue)
+  select(Species,Year.x, Year.y, CountryName, cmsValue, citesValue) 
 
 #These are countries that proposed the same species in both CMS and CITES
 same_state <- all_state %>% 

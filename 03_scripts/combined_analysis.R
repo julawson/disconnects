@@ -59,10 +59,9 @@ trfmo_combo <- iattc_prop %>%
   group_by(CountryName, Species) %>% 
   summarize(trfmoValue = mean(trfmoValue))
 
-#filtering by species group for tRFMO
-cfalci <- cons_state %>% 
-  full_join(trfmo_combo, by=c("CountryName","Species")) %>% 
-  filter(Species == "Carcharhinus falciformis") %>%
+#Overall score for conservation and tRFMO mismatch
+cons_trfmo <- cons_state %>% 
+  left_join(trfmo_combo, by=c("CountryName","Species")) %>%
   mutate(overallValue= case_when(
     consValue == 1 & is.na(trfmoValue) ~ 1,
     consValue == 0.5 & is.na(trfmoValue) ~ 0.5,
@@ -71,30 +70,61 @@ cfalci <- cons_state %>%
     is.na(consValue) & trfmoValue == 0.5 ~ 0.5,
     is.na(consValue) & trfmoValue == 0 ~ 0,
     consValue == 1 & trfmoValue == 1 ~ 1,
-    consValue == 0 & trfmoValue == 0 ~ 0)) %>% 
-  group_by(CountryName) %>%
-  summarize(overallValue = mean(overallValue)) %>% 
-  distinct(CountryName)
+    consValue == 0 & trfmoValue == 0 ~ 0,
+    consValue == 1 & trfmoValue == 0 ~ 0.5,
+    consValue == 0 & trfmoValue == 1 ~ 0.5))
 
+#Analysis by species, all countries
 
-rtypus <- trfmo_combo %>% 
-  filter(Species == "Rhincodon typus") %>% 
-  mutate(overallValue= case_when(
-    iattcValue == 1 & is.na(iotcValue) & is.na(wcpfcValue) ~ 1,
-    iattcValue == 0 & is.na(iotcValue) & is.na(wcpfcValue) ~ 0,
-    is.na(iattcValue) & iotcValue == 1 & is.na(wcpfcValue) ~ 1,
-    is.na(iattcValue) & iotcValue == 0 & is.na(wcpfcValue) ~ 0,
-    is.na(iattcValue) & is.na(iotcValue) & wcpfcValue == 1 ~ 1,
-    is.na(iattcValue) & is.na(iotcValue) & wcpfcValue == 0 ~ 0,
-    iattcValue == 0 & iotcValue ==0 & is.na(wcpfcValue) ~ 0,
-    is.na(iattcValue) & iotcValue == 1 & wcpfcValue == 1 ~ 1,
-    is.na(iattcValue) & iotcValue == 0 & wcpfcValue == 0 ~ 0)) %>% 
-  select(CountryName, Species, overallValue) %>% 
+#Thresher Sharks, Alopias spp.
+alopias <- cons_trfmo %>% 
+  filter(Species == "Alopias spp.")
+#just countries in cons and trfmo
+alopias_select <- alopias %>% 
+  drop_na()
+
+#Whale Shark, Rhincodon typus
+rtypus <- cons_trfmo %>% 
+  filter(Species == "Rhincodon typus")
+#just countries in cons and trfmo
+rtypus_select <- rtypus %>% 
+  drop_na()
+
+#Silky Shark, Carcharhinus falciformis
+cfalci <- cons_trfmo %>% 
+  filter(Species == "Carcharhinus falciformis")
+#just countries in cons and trfmo
+cfalci_select <- cfalci %>% 
+  drop_na()
+
+#Oceanic Whitetip, Carcharhinus longimanus
+clongi <- cons_trfmo %>% 
+  filter(Species == "Carcharhinus longimanus")
+#just countries in cons and trfmo
+clongi_select <- clongi %>% 
+  drop_na()
+
+#Hammerhead Sharks, Sphyrna zygaena or Sphyrna spp.
+sphyrna <- cons_trfmo %>% 
+  filter(Species == "Sphyrna spp." | Species == "Sphyrna zygaena") 
+sphyrna_genus <- sphyrna %>% 
   distinct() %>% 
-  group_by(CountryName, Species) %>% 
-  summarize(trfmoValue = mean(overallValue))
+  group_by(CountryName) %>% 
+  summarize(overallValue = mean(overallValue))
+#just countries in cons and trfmo
+sphyrna_select <- sphyrna %>% 
+  drop_na()
 
-
+#Mobulids and mantas, Manta birostris, Manta alfredi, Manta spp., Mobula spp.
+mobulidae <- cons_trfmo %>% 
+  filter(Species == "Manta birostris" | Species == "Manta alfredi" | Species == "Manta spp." | Species == "Mobula spp.") 
+mobulidae_genus <- mobulidae %>% 
+  distinct() %>% 
+  group_by(CountryName) %>% 
+  summarize(overallValue = mean(overallValue))
+#just countries in cons and trfmo
+mobulidae_select <- mobulidae %>% 
+  drop_na()
 
 #Importing Overall RFMO Data
 iattc_all <- read.csv(here("02_processed-data","iattc_all.csv")) 
