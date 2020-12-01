@@ -1,4 +1,3 @@
-
 library(dplyr)
 library(tidyverse)
 library(reshape2)
@@ -49,6 +48,7 @@ p1<-ggplot(i, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fill=stance
 
 p1 + facet_wrap(vars(tRFMO ), nrow=1, scales= "free",drop=TRUE)
 
+<<<<<<< HEAD
 #opposers
 
 opposers<-subset(i, stance == "Oppose")
@@ -77,3 +77,5 @@ s<- ggplot(supporters, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fi
 
 ggarrange(o,s , ncol=2, common.legend=TRUE)
 
+=======
+>>>>>>> 811726e87dea077a1c4ed663855fb6921e534c10

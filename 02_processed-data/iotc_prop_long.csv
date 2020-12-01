@@ -1,0 +1,32 @@
+"Country","Status","Species.New","Year","value"
+"EU","Member","Alopias spp.","",1
+"Australia","Member","Alopias spp.","2010",0
+"EU","Member","Alopias spp.","2010",1
+"EU","Member","Carcharhinus falciformis","2014",1
+"China","Member","Carcharhinus falciformis","2013",0
+"EU","Member","Carcharhinus falciformis","2013",1
+"Japan","Member","Carcharhinus falciformis","2013",0
+"Korea","Member","Carcharhinus falciformis","2013",0
+"Australia","Member","Mobula spp.","2017",1
+"Maldives","Member","Mobula spp.","2017",1
+"Seychelles","Member","Mobula spp.","2017",1
+"South Africa","Member","Mobula spp.","2017",1
+"EU","Member","Sphyrna spp.","2014",1
+"China","Member","Sphyrna spp.","2013",0
+"EU","Member","Sphyrna spp.","2013",1
+"Japan","Member","Sphyrna spp.","2013",0
+"China","Member","Sphyrna spp.","2012",0
+"EU","Member","Sphyrna spp.","2012",1
+"Japan","Member","Sphyrna spp.","2012",0
+"Korea","Member","Sphyrna spp.","2012",0
+"EU","Member","Sphyrna spp.","2011",1
+"EU","Member","Prionace glauca","2018",1
+"Australia","Member","Rhincodon typus","2013",1
+"Maldives","Member","Rhincodon typus","2013",1
+"Australia","Member","Rhincodon typus","2012",1
+"Japan","Member","Rhincodon typus","2012",0
+"Maldives","Member","Rhincodon typus","2012",1
+"EU","Member","Carcharhinus longimanus","2017",1
+"India","Member","Carcharhinus longimanus","2017",0
+"EU","Member","Carcharhinus longimanus","2013",1
+"EU","Member","Carcharhinus longimanus","2011",1

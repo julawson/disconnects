@@ -27,7 +27,7 @@ same_prop <- all_prop %>%
 
 #These are the countries that made statements on all species
 all_state <- full_join(cms_state,cites_state, by=c("Species","CountryName")) %>% 
-  select(Species,Year.x, Year.y, CountryName, cmsValue, citesValue)
+  select(Species,Year.x, Year.y, CountryName, cmsValue, citesValue) 
 
 #These are countries that proposed the same species in both CMS and CITES
 same_state <- all_state %>% 
@@ -54,3 +54,13 @@ cons_state <- all_state %>%
   rename(CMSyear = Year.x) %>% 
   rename(CITESyear = Year.y)
 
+###Exporting Tidy Data###
+
+#Overall Data, tRFMO level#
+write.csv(x = cons_state,
+          file = here("02_processed-data", "cons_state.csv"),
+          row.names = F)
+
+write.csv(x = cons_prop,
+          file = here("02_processed-data", "cons_prop.csv"),
+          row.names = F)
