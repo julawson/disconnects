@@ -132,9 +132,13 @@ mobulidae_select <- mobulidae %>%
 #Creating a table of consistent/inconsistent actors
 all_species <- bind_rows(alopias_select, rtypus_select, cfalci_select, clongi_select, sphyrna_select, mobulidae_select)
 
+###Exporting Data###
 #Overall Analysis, Species level#
 write.csv(x = all_species,
           file = here("04_results", "trfmo_cons_all_species.csv"),
+          row.names = F)
+write.csv(x = cons_state,
+          file = here("02_processed-data", "cons_state_numeric.csv"),
           row.names = F)
 
 

@@ -54,15 +54,13 @@ cons_state <- all_state %>%
   rename(CMSyear = Year.x) %>% 
   rename(CITESyear = Year.y)
 
-#Identify which countries were good actors, mixed actors, or bad actors across both CMS and CITES agreements.
-cons_oppose <- cons_state %>% 
-  filter(combined == "oppose" | combined == "mixed")
-unique(cons_oppose$CountryName)
-
-
 ###Exporting Tidy Data###
 
 #Overall Data, tRFMO level#
 write.csv(x = cons_state,
           file = here("02_processed-data", "cons_state.csv"),
+          row.names = F)
+
+write.csv(x = cons_prop,
+          file = here("02_processed-data", "cons_prop.csv"),
           row.names = F)
