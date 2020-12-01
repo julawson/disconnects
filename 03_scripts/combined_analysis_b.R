@@ -81,8 +81,8 @@ cons <- ggplot(mapping=aes(x=reorder(Country, -total.y), y = total.y, fill = pos
 ggsave(plot = fish,
        filename = here("04_results", "trfmo_votes.png"),
        height = 5,
-       width = 3.5)
+       width = 10)
 ggsave(plot = cons,
        filename = here("04_results", "cons_votes.png"),
        height = 5,
-       width = 3.5)
+       width = 10)
