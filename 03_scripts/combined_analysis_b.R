@@ -77,6 +77,9 @@ cons <- ggplot(mapping=aes(x=reorder(Country, -total.y), y = total.y, fill = pos
   coord_flip()+
   theme_bw()
 
+facet_wrap( fish, cons)
+
+
 ###Export two plots###
 ggsave(plot = fish,
        filename = here("04_results", "trfmo_votes.png"),
@@ -86,3 +89,34 @@ ggsave(plot = cons,
        filename = here("04_results", "cons_votes.png"),
        height = 5,
        width = 10)
+
+
+
+
+#divergent bar plot
+#add column for type of forum
+fishery<-rep("fishery", length(trfmo_summary))
+trfmo_all <- cbind(trfmo_summary, forum=fishery) 
+
+cons<-rep("conservation", length(cons_summary))
+nas<-rep("NA", length(cons_summary))
+cons_all <- cbind(cons_summary, forum=cons, tRFMO= nas) 
+
+#add negative values for trfmo votes
+trfmo_all<-mutate(trfmo_all, total = -total)
+
+#merge datasets
+cons_summary_mirror<- rbind(trfmo_all, cons_all, 
+                      by = c("Country", "position", "total", "tRFMO", "forum"  ) ) 
+cons_summary_mirror$total<-as.numeric(cons_summary_mirror$total)
+
+#plot
+ggplot(cons_summary_mirror,
+       aes(x=reorder(Country, -total), y =total, fill= position))+
+  geom_bar(stat="identity")+
+  coord_flip()+
+  theme_bw()
+  #facet_wrap(~reorder(tRFMO, -total, levels=c("IATTC","IOTC","WCPFC")), scales= "free_y",  drop=TRUE) +
+
+
+
