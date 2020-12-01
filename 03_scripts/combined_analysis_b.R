@@ -77,4 +77,12 @@ cons <- ggplot(mapping=aes(x=reorder(Country, -total.y), y = total.y, fill = pos
   coord_flip()+
   theme_bw()
 
-fish + cons + plot_layout(ncol = 1)
+###Export two plots###
+ggsave(plot = fish,
+       filename = here("04_results", "trfmo_votes.png"),
+       height = 5,
+       width = 3.5)
+ggsave(plot = cons,
+       filename = here("04_results", "cons_votes.png"),
+       height = 5,
+       width = 3.5)
