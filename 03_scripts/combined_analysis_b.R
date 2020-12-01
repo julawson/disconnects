@@ -64,7 +64,7 @@ fish <- ggplot(mapping=aes(x=reorder(Country, -total.x), y = total.x, fill = pos
   geom_bar(data=cons_summary_filtered, stat="identity", position="stack") +
   labs(y= "Number of votes", x= "Country") +
   guides(fill=guide_legend(title=NULL)) +
-  facet_wrap(~reorder(tRFMO, -total.x, FUN= sum), scales= "free_y",  drop=TRUE) +
+  facet_wrap(~reorder(tRFMO, -total.x, levels=c("IATTC","IOTC","WCPFC")), scales= "free_y",  drop=TRUE) +
   scale_y_reverse() +
   coord_flip()+
   theme_bw()
@@ -73,7 +73,7 @@ cons <- ggplot(mapping=aes(x=reorder(Country, -total.y), y = total.y, fill = pos
   geom_bar(data=cons_summary_filtered, stat="identity", position="stack") +
   labs(y= "Number of votes", x= "Country") +
   guides(fill=guide_legend(title=NULL)) +
-  facet_wrap(~reorder(tRFMO, -total.y, FUN= sum), scales= "free_y",  drop=TRUE) +
+  facet_wrap(~reorder(tRFMO, -total.y, levels=c("IATTC","IOTC","WCPFC")), scales= "free_y",  drop=TRUE) +
   coord_flip()+
   theme_bw()
 
