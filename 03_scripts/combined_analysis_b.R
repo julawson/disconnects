@@ -61,7 +61,6 @@ cons_summary_filtered <- trfmo_summary %>%
 
 #plot by tRFMO
 
-
 iattc_toplot <- cons_summary_filtered %>% 
   filter(tRFMO=="IATTC") %>% 
   mutate(total.y = -1*total.y)
@@ -77,6 +76,8 @@ iattc_plot <- ggplot(iattc_toplot) +
   guides(fill=guide_legend(title=NULL)) +
   scale_y_continuous(breaks = break_values,
                      labels = abs(break_values)) +
+  annotate("text", x = "Republic of Korea", y = 25, label = "Fisheries", size = 3.5, fontface = "bold.italic") +
+  annotate("text", x = "Republic of Korea", y = -25, label = "Conservation", size = 3.5, fontface = "bold.italic") +
   theme_bw() +
   theme(legend.position = "none")
 
@@ -95,6 +96,9 @@ iotc_plot <- ggplot(iotc_toplot) +
   guides(fill=guide_legend(title=NULL)) +
   scale_y_continuous(breaks = break_values2, 
                      labels = abs(break_values2)) +
+#  ylim(-20,30) +
+  annotate("text", x = "South Africa", y = 30, label = "Fisheries", size = 3.5, fontface = "bold.italic") +
+  annotate("text", x = "South Africa", y = -12, label = "Conservation", size = 3.5, fontface = "bold.italic") +
   theme_bw() +
   theme(legend.position = "none")
 
@@ -112,20 +116,20 @@ wcpfc_plot <- ggplot(wcpfc_toplot) +
   coord_flip() +
   scale_y_continuous(breaks = break_values3, 
                      labels = abs(break_values3)) +
+  annotate("text", x = "Tuvalu", y = 25, label = "Fisheries", size = 3.5, fontface = "bold.italic") +
+  annotate("text", x = "Tuvalu", y = -25, label = "Conservation", size = 3.5, fontface = "bold.italic") +
   theme_bw() +
   theme(legend.position = "none")
 
 
 ###Combine plots###
 
-combotrfmo <- ggarrange(iattc_plot,iotc_plot,wcpfc_plot, nrow = 1, labels = c("IATTC","IOTC","WCPFC"), font.label = list(size=12))
+combotrfmo <- ggarrange(iattc_plot,iotc_plot,wcpfc_plot, nrow = 1, labels = c("IATTC","IOTC","WCPFC"), font.label = list(size=12), common.legend = TRUE, legend="top")
 
-annotate_figure(combotrfmo, bottom = "Number of Position Statements", left = "Party")
-
-
+combotrfmo2 <- annotate_figure(combotrfmo, bottom = "Number of Participatory Actions", left = "Party")
 
 ###Export two plots###
-ggsave(plot = combotrfmo,
+ggsave(plot = combotrfmo2,
        filename = here("04_results", "combined_trfmo_cons.png"),
        height = 5,
-       width = 12)
+       width = 15)
