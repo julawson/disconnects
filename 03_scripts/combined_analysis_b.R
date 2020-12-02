@@ -3,6 +3,8 @@ library(here)
 library(tidyverse)
 library(reshape2)
 library(gridExtra)
+library(ggpubr)
+library(wesanderson)
 
 #Country participation in conservation policy (by number of votes)
 #One bar indicating proposal or co-sponsor, another stacked bar indicating support
@@ -57,37 +59,83 @@ trfmo_countries <- trfmo_summary %>%
 cons_summary_filtered <- trfmo_summary %>% 
   left_join(cons_summary, by="Country")
 
+#plot by tRFMO
 
-#plot in facet 
-
-fish <- ggplot(mapping=aes(x=reorder(Country, -total.x), y = total.x, fill = position.x)) +
-  geom_bar(data=cons_summary_filtered, stat="identity", position="stack") +
-  labs(y= "Number of votes", x= "Country") +
-  guides(fill=guide_legend(title=NULL)) +
-  facet_wrap(~reorder(tRFMO, -total.x, levels=c("IATTC","IOTC","WCPFC")), scales= "free_y",  drop=TRUE) +
+iattc_toplot <- cons_summary_filtered %>% 
+  filter(tRFMO=="IATTC") %>% 
+  mutate(total.y = -1*total.y)
+break_values <- c(20,0,-20)
+iattc_plot <- ggplot(iattc_toplot) +
+  geom_bar(aes(x=reorder(Country, -total.x),y = total.y, fill = position.y), stat="identity", position="stack") +
+  geom_bar(aes(x=reorder(Country, -total.x),y = total.x, fill = position.x), stat="identity", position="stack") +
+  scale_fill_manual(values=wes_palette(n=3, name="Darjeeling1")) +
+  geom_hline(yintercept = 0) +
+  labs(title=NULL, y= NULL, x=NULL) +
   scale_y_reverse() +
-  coord_flip()+
-  theme_bw()
-
-cons <- ggplot(mapping=aes(x=reorder(Country, -total.y), y = total.y, fill = position.y)) +
-  geom_bar(data=cons_summary_filtered, stat="identity", position="stack") +
-  labs(y= "Number of votes", x= "Country") +
+  coord_flip() +
   guides(fill=guide_legend(title=NULL)) +
-  facet_wrap(~reorder(tRFMO, -total.y, levels=c("IATTC","IOTC","WCPFC")), scales= "free_y",  drop=TRUE) +
-  coord_flip()+
-  theme_bw()
+  scale_y_continuous(breaks = break_values,
+                     labels = abs(break_values)) +
+  annotate("text", x = "Republic of Korea", y = 25, label = "Fisheries", size = 3.5, fontface = "bold.italic") +
+  annotate("text", x = "Republic of Korea", y = -25, label = "Conservation", size = 3.5, fontface = "bold.italic") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+iotc_toplot <- cons_summary_filtered %>% 
+  filter(tRFMO=="IOTC") %>% 
+  mutate(total.y = -1*total.y)
+break_values2 <- c(30,20,10,0,-10)
+iotc_plot <- ggplot(iotc_toplot) +
+  geom_bar(aes(x=reorder(Country, -total.x),y = total.y, fill = position.y), stat="identity", position="stack") +
+  geom_bar(aes(x=reorder(Country, -total.x),y = total.x, fill = position.x), stat="identity", position="stack") +
+  scale_fill_manual(values=wes_palette(n=3, name="Darjeeling1")) +
+  geom_hline(yintercept = 0) +
+  labs(title=NULL, y= NULL, x=NULL) +
+  scale_y_reverse() +
+  coord_flip() +
+  guides(fill=guide_legend(title=NULL)) +
+  scale_y_continuous(breaks = break_values2, 
+                     labels = abs(break_values2)) +
+#  ylim(-20,30) +
+  annotate("text", x = "South Africa", y = 30, label = "Fisheries", size = 3.5, fontface = "bold.italic") +
+  annotate("text", x = "South Africa", y = -12, label = "Conservation", size = 3.5, fontface = "bold.italic") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+wcpfc_toplot <- cons_summary_filtered %>% 
+  filter(tRFMO=="WCPFC") %>% 
+  mutate(total.y = -1*total.y)
+break_values3 <- c(20,0,-20)
+wcpfc_plot <- ggplot(wcpfc_toplot) +
+  geom_bar(aes(x=reorder(Country, -total.x),y = total.y, fill = position.y), stat="identity", position="stack") +
+  geom_bar(aes(x=reorder(Country, -total.x),y = total.x, fill = position.x), stat="identity", position="stack") +
+  scale_fill_manual(values=wes_palette(n=3, name="Darjeeling1")) +
+  geom_hline(yintercept = 0) +
+  labs(title=NULL, y= NULL, x=NULL) +
+  scale_y_reverse() +
+  coord_flip() +
+  scale_y_continuous(breaks = break_values3, 
+                     labels = abs(break_values3)) +
+  annotate("text", x = "Tuvalu", y = 25, label = "Fisheries", size = 3.5, fontface = "bold.italic") +
+  annotate("text", x = "Tuvalu", y = -25, label = "Conservation", size = 3.5, fontface = "bold.italic") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+
+###Combine plots###
+
+combotrfmo <- ggarrange(iattc_plot,iotc_plot,wcpfc_plot, nrow = 1, labels = c("IATTC","IOTC","WCPFC"), font.label = list(size=12), common.legend = TRUE, legend="top")
+
+combotrfmo2 <- annotate_figure(combotrfmo, bottom = "Number of Participatory Actions", left = "Party")
 
 facet_wrap( fish, cons)
 
 
 ###Export two plots###
-ggsave(plot = fish,
-       filename = here("04_results", "trfmo_votes.png"),
+ggsave(plot = combotrfmo2,
+       filename = here("04_results", "combined_trfmo_cons.png"),
        height = 5,
-       width = 10)
-ggsave(plot = cons,
-       filename = here("04_results", "cons_votes.png"),
-       height = 5,
+<<<<<<< HEAD
        width = 10)
 
 
@@ -120,3 +168,6 @@ ggplot(cons_summary_mirror,
 
 
 
+=======
+       width = 15)
+>>>>>>> cce2ae781038295b8fc60634cde58609896b2794
