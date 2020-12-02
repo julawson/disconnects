@@ -4,12 +4,13 @@ library(reshape2)
 library(gridExtra)
 library(viridis)
 library(ggpubr)
+library(here)
 
 #create plot of country participantion for each tRFMO 
 #note that this is high level for all shark-related policy (not single species)
 
 
-all_trfmo_votes<- read.csv("tRFMO_voting_all.csv", sep = ",", header = TRUE)
+all_trfmo_votes<- read.csv(here("01_raw-data", "tRFMO_voting_all.csv"))
 
 #pivot database from wide to long
 i<-all_trfmo_votes %>% 
@@ -48,7 +49,6 @@ p1<-ggplot(i, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fill=stance
 
 p1 + facet_wrap(vars(tRFMO ), nrow=1, scales= "free",drop=TRUE)
 
-<<<<<<< HEAD
 #opposers
 
 opposers<-subset(i, stance == "Oppose")
@@ -76,6 +76,3 @@ s<- ggplot(supporters, aes( x=reorder(Country, -votes, FUN = sum), y = votes, fi
   theme_bw()
 
 ggarrange(o,s , ncol=2, common.legend=TRUE)
-
-=======
->>>>>>> 811726e87dea077a1c4ed663855fb6921e534c10
