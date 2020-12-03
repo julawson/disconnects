@@ -38,8 +38,8 @@ catch_totals<- catch %>% pivot_longer(
 #species plot
 ggplot(catch_totals, aes(x=Year, y=catch, fill= species) )+
   geom_col()+
-  scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
-                labels = trans_format("log10", math_format(10^.x))) +
+ # scale_y_log10(breaks = trans_breaks("log10", function(x) 10^x),
+               # labels = trans_format("log10", math_format(10^.x))) +
   theme_bw()+
   labs(y= "Total Reported Catch (1995 - 2018)")
 
